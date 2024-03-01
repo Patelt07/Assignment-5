@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  
+  <div id="todo-container">
+    <ul id="todo-list">
+      
+    </ul>
+  </div>
+
+  <input type="text" id="itemToDelete" placeholder="Enter item to delete">
+  <button onclick="deleteItem()">Delete</button>
+  <br><br>
+
+  <button onclick="addItem()">Add</button>
+  <button onclick="clearList()">Clear</button>
+  <button onclick="sortList()">Sort</button>
+
+  <script>
+    function addItem() {
+      var item = prompt("Enter new item:");
+      if (item) {
+        var list = document.getElementById("todo-list");
+        var listItem = document.createElement("li");
+        listItem.textContent = item;
+        list.appendChild(listItem);
+        alert("Item added successfully!");
+      }
+    }
+
+    function clearList() {
+      var list = document.getElementById("todo-list");
+      list.innerHTML = "";
+      alert("List cleared successfully!");
+    }
+
+    function sortList() {
+      var list = document.getElementById("todo-list");
+      var items = list.getElementsByTagName("li");
+      var sortedItems = Array.from(items).sort((a, b) => a.textContent.localeCompare(b.textContent));
+      list.innerHTML = "";
+      sortedItems.forEach(item => list.appendChild(item));
+      alert("List sorted successfully!");
+    }
+
+    function deleteItem() {
+      var itemToDelete = document.getElementById("itemToDelete").value;
+      var list = document.getElementById("todo-list");
+      var items = list.getElementsByTagName("li");
+      var found = false;
+
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].textContent === itemToDelete) {
+          list.removeChild(items[i]);
+          alert("Item deleted successfully!");
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        alert("Item not found in the list.");
+      }
+    }
+  </script>
+</body>
+</html>
